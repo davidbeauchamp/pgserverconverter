@@ -17,24 +17,24 @@ int main(int argc, char *argv[])
     parser.addVersionOption();
 
     QCommandLineOption inputFile(QStringList() << "i" << "input",
-    #ifdef Q_OS_LINUX
+#ifdef Q_OS_LINUX
     QCoreApplication::translate("main", "pgadmin3 config file. Defaults to ~/.pgadmin3"),
-    #endif
-    #ifdef Q_OS_MAC
+#endif
+#ifdef Q_OS_MAC
     QCoreApplication::translate("main", "pgadmin3 config file. Defaults to ~/Library/Preferences/pgadmin3 Preferences"),
-    #endif
-    #ifdef Q_OS_WIN
+#endif
+#ifdef Q_OS_WIN
     QCoreApplication::translate("main", "pgadmin3 config file. Defaults to the windows registry"),
-    #endif
+#endif
     QCoreApplication::translate("main", "inputfile"));
     parser.addOption(inputFile);
 
     QCommandLineOption database(QStringList() << "d" << "database",
-    #ifdef Q_OS_WIN
+#ifdef Q_OS_WIN
     QCoreApplication::translate("main", "Path to pgAdmin4's SQLite database. Defaults to ~/AppData/Roaming/pgadmin/pgadmin4.db"),
-    #else
+#else
     QCoreApplication::translate("main", "Path to pgAdmin4's SQLite database. Defaults to ~/.pgadmin/pgadmin4.db"),
-    #endif
+#endif
     QCoreApplication::translate("main", "database"));
     parser.addOption(database);
 
@@ -47,26 +47,26 @@ int main(int argc, char *argv[])
         _input = parser.value("input");
     }
     else {
-        #ifdef Q_OS_LINUX
+#ifdef Q_OS_LINUX
         _input = QDir::homePath() + "/.pgadmin3";
-        #endif
-        #ifdef Q_OS_MAC
+#endif
+#ifdef Q_OS_MAC
         _input = QDir::homePath() + "/Library/Preferences/pgadmin3 Preferences";
-        #endif
-        #ifdef Q_OS_WIN
+#endif
+#ifdef Q_OS_WIN
         _input = "Windows Registry";
-        #endif
+#endif
     }
 
     if (parser.isSet("database")) {
         _db = parser.value("database");
     }
     else {
-        #ifdef Q_OS_WIN
+#ifdef Q_OS_WIN
         _db = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation)[0] + "/../pgadmin/pgadmin4.db";
-        #else
+#else
         _db = QDir::homePath() + "/.pgadmin/pgadmin4.db";
-        #endif
+#endif
     }
 
     converter c(_input, _db);
