@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 
     QCommandLineOption database(QStringList() << "d" << "database",
     #ifdef Q_OS_WIN
-    QCoreApplication::translate("main", "Path to pgAdmin4's SQLite database. Defaults to ~/Application Data/Roaming/pgadmin/pgadmin4.db"),
+    QCoreApplication::translate("main", "Path to pgAdmin4's SQLite database. Defaults to ~/AppData/Roaming/pgadmin/pgadmin4.db"),
     #else
     QCoreApplication::translate("main", "Path to pgAdmin4's SQLite database. Defaults to ~/.pgadmin/pgadmin4.db"),
     #endif

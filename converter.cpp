@@ -44,11 +44,11 @@ void converter::start() {
         }
     }
 
-    #ifdef Q_OS_WIN
+#ifdef Q_OS_WIN
         QSettings settings("HKEY_CURRENT_USER\\Software\\pgAdmin III", QSettings::NativeFormat);
-    #else
+#else
         QSettings settings(_inputFile, QSettings::IniFormat);
-    #endif
+#endif
 
     QStringList allkeys = settings.allKeys(); // I don't know why I have to call this to make it read the file..
 
@@ -124,9 +124,9 @@ void converter::start() {
         QSqlQuery sqry;
         sqry.prepare("INSERT INTO server (user_id, servergroup_id, name, host, port, "
                      "                    maintenance_db, username, role, ssl_mode, comment, discovery_id) "
-                     " SELECT :user_id, (SELECT id FROM servergroup WHERE servergroup.name = :groupname), :name, :host, :port, "
-                     "        :maintenance_db, :username, :role, :ssl_mode, :comment, :discovery_id "
-                     "  WHERE NOT EXISTS (SELECT server.name FROM server WHERE server.host = :serverhost AND server.port = :serverport AND server.username = :serveruser);");
+                     "SELECT :user_id, (SELECT id FROM servergroup WHERE servergroup.name = :groupname), :name, :host, :port, "
+                     "       :maintenance_db, :username, :role, :ssl_mode, :comment, :discovery_id "
+                     " WHERE NOT EXISTS (SELECT server.name FROM server WHERE server.host = :serverhost AND server.port = :serverport AND server.username = :serveruser);");
 
         sqry.bindValue(":user_id", 1);
         sqry.bindValue(":groupname",      s.group);
